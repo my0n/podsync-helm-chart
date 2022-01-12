@@ -36,7 +36,7 @@ spec:
               containerPort: 80
               protocol: TCP
           volumeMounts:
-            {{- if .Values.dataClaimName }}
+            {{- if .Values.persistence.dataClaimName }}
             - mountPath: /app/data
               name: data
             {{- end }}
@@ -62,7 +62,7 @@ spec:
             - name: PODSYNC_INGRESS_HOST
               value: {{ default "localhost" .Values.ingress.host }}
             {{- end }}
-            {{- toYaml .Values.templateVariables | nindent 12 }}
+            {{- toYaml .Values.configuration.env | nindent 12 }}
           volumeMounts:
             - mountPath: /workdir
               name: config-template
@@ -74,10 +74,10 @@ spec:
             name: {{ include "podsync.fullname" . }}-config
         - name: config-final
           emptyDir: {}
-        {{- if .Values.dataClaimName }}
+        {{- if .Values.persistence.dataClaimName }}
         - name: data
           persistentVolumeClaim:
-            claimName: {{ .Values.dataClaimName }}
+            claimName: {{ .Values.persistence.dataClaimName }}
         {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:

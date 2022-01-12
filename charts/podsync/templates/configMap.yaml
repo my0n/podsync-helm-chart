@@ -5,4 +5,4 @@ metadata:
 data:
   config.toml: |
     # template
-    {{- .Values.configTemplate | nindent 4 }}
+    {{- .Values.configuration.template | nindent 4 }}

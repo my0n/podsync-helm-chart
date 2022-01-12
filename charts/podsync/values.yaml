@@ -12,20 +12,22 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-# The config.toml template contents
-configTemplate: ""
+configuration:
+  # The config.toml template contents
+  template: ""
 
-# The template variables to use
-# Will be used to replace values in configTemplate
-templateVariables: []
-#  - name: PODSYNC_YOUTUBE_KEY
-#    valueFrom:
-#      secretKeyRef:
-#        name: youtube-api-key
-#        key: apiKey
+  # The template variables to use
+  # Will be used to replace values in configTemplate
+  env: []
+  #  - name: PODSYNC_YOUTUBE_KEY
+  #    valueFrom:
+  #      secretKeyRef:
+  #        name: youtube-api-key
+  #        key: apiKey
 
-# The name of the persistentVolumeClaim that data will be stored at (e.g. downloaded video content)
-dataClaimName: ""
+persistence:
+  # The name of the persistentVolumeClaim that data will be stored at (e.g. downloaded video content)
+  dataClaimName: ""
 
 service:
   type: ClusterIP
