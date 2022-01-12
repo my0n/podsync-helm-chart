@@ -14,11 +14,11 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-# The name of the configMap to use for the config.toml template
-configTemplateName: ""
+# The config.toml template contents
+configTemplate: ""
 
 # The template variables to use
-# Will be used to replace values in the configTemplate
+# Will be used to replace values in configTemplate
 templateVariables: []
 #  - name: PODSYNC_YOUTUBE_KEY
 #    valueFrom:
