@@ -35,6 +35,14 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
+          volumeMounts:
+            {{- if .Values.dataClaimName }}
+            - mountPath: /app/data
+              name: data
+            {{- end }}
+            - mountPath: /app/config.toml
+              name: config-final
+              subPath: config.toml
           livenessProbe:
             httpGet:
               path: /
