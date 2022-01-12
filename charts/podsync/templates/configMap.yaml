@@ -3,4 +3,5 @@ kind: ConfigMap
 metadata:
   name: {{ include "podsync.fullname" . }}-config
 data:
-  config.toml: {{- .Values.configTemplate }}
+  config.toml: |+
+    {{ .Values.configTemplate | indent 4 }}
