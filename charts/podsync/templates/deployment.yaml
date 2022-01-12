@@ -5,9 +5,7 @@ metadata:
   labels:
     {{- include "podsync.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
       {{- include "podsync.selectorLabels" . | nindent 6 }}
@@ -47,6 +45,36 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      {{- if .Values.configTemplateName }}
+      initContainers:
+        - name: {{ .Chart.Name }}-init-config
+          image: dibi/envsubst
+          imagePullPolicy: IfNotPresent
+          env:
+            {{- if .Values.ingress.enabled }}
+            - name: PODSYNC_INGRESS_HOST
+              value: {{ default "localhost" .Values.ingress.host }}
+            {{- end }}
+            {{- toYaml .Values.templateVariables | nindent 12 }}
+          volumeMounts:
+            - mountPath: /workdir
+              name: config-template
+            - mountPath: /processed
+              name: config-final
+      {{- end }}
+      volumes:
+        {{- if .Values.configTemplateName }}
+        - name: config-template
+          configMap:
+            name: {{ .Values.configTemplateName }}
+        {{- end }}
+        - name: config-final
+          emptyDir: {}
+        {{- if .Values.dataClaimName }}
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ .Values.dataClaimName }}
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
