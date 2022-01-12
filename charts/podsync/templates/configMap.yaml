@@ -4,4 +4,4 @@ metadata:
   name: {{ include "podsync.fullname" . }}-config
 data:
   config.toml: |-
-    {{ .Values.configTemplate | indent 4 }}
+    {{- .Values.configTemplate | indent 4 }}
