@@ -1,6 +1,11 @@
 apiVersion: v2
 name: podsync
 description: A Helm chart for Kubernetes
+maintainers:
+  - name: my0n
+home: https://github.com/my0n/podsync-helm-chart
+sources:
+  - https://github.com/my0n/podsync-helm-chart
 
 # A chart can be either an 'application' or a 'library' chart.
 #
