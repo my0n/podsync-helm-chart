@@ -1,6 +1,6 @@
 # podsync-helm-chart
 
-An unofficial helm chart for podsync.
+An unofficial helm chart for [podsync](https://github.com/mxpv/podsync) (currently using [this version](https://github.com/tuxpeople/docker-podsync) for yt-dlp support).
 
 # Example usage:
 
