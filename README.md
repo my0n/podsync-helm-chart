@@ -50,3 +50,20 @@ type: Opaque
 data:
   apiKey: WU9VUl9ZT1VUVUJFX0FQSV9LRVlfSEVSRQ==
 ```
+
+```yaml
+# podsync-pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: podsync-pvc
+  namespace: default
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: my-storage-class
+  volumeMode: Filesystem
+```
