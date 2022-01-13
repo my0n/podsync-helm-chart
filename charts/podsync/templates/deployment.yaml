@@ -4,6 +4,10 @@ metadata:
   name: {{ include "podsync.fullname" . }}
   labels:
     {{- include "podsync.labels" . | nindent 4 }}
+{{- if .Values.configuration.reloaderEnabled }}
+  annotations:
+    configmap.reloader.stakater.com/reload: "{{ include "podsync.fullname" . }}-config"
+{{- end }}
 spec:
   replicas: 1
   selector:
