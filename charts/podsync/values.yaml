@@ -2,8 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
-
 image:
   repository: tdeutsch/podsync
   pullPolicy: IfNotPresent
@@ -14,20 +12,26 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-# The config.toml template contents
-configTemplate: ""
+configuration:
+  # Enable Reloader support for automatically reloading the ConfigMap template on update
+  # https://github.com/stakater/Reloader
+  reloaderEnabled: false
 
-# The template variables to use
-# Will be used to replace values in configTemplate
-templateVariables: []
-#  - name: PODSYNC_YOUTUBE_KEY
-#    valueFrom:
-#      secretKeyRef:
-#        name: youtube-api-key
-#        key: apiKey
+  # The config.toml template contents
+  template: ""
 
-# The name of the persistentVolumeClaim that data will be stored at (e.g. downloaded video content)
-dataClaimName: ""
+  # The template variables to use
+  # Will be used to replace values in configTemplate
+  env: []
+  #  - name: PODSYNC_YOUTUBE_KEY
+  #    valueFrom:
+  #      secretKeyRef:
+  #        name: youtube-api-key
+  #        key: apiKey
+
+persistence:
+  # The name of the persistentVolumeClaim that data will be stored at (e.g. downloaded video content)
+  dataClaimName: ""
 
 service:
   type: ClusterIP
