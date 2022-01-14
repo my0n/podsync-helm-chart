@@ -7,7 +7,7 @@ An unofficial helm chart for [podsync](https://github.com/mxpv/podsync) (current
 ```sh
 helm repo add my0npodsync https://my0n.github.io/podsync-helm-chart
 helm repo update
-helm install my0npodsync/podsync -f values.yaml
+helm install podsync my0npodsync/podsync -f values.yaml
 ```
 
 ```yaml
