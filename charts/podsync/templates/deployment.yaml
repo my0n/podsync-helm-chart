@@ -40,10 +40,8 @@ spec:
               containerPort: 80
               protocol: TCP
           volumeMounts:
-            {{- if .Values.persistence.dataClaimName }}
             - mountPath: /app/data
               name: data
-            {{- end }}
             - mountPath: /app/config.toml
               name: config-final
               subPath: config.toml
@@ -78,11 +76,17 @@ spec:
             name: {{ include "podsync.fullname" . }}
         - name: config-final
           emptyDir: {}
-        {{- if .Values.persistence.dataClaimName }}
         - name: data
+          {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
-            claimName: {{ .Values.persistence.dataClaimName }}
-        {{- end }}
+            {{- if .Values.persistence.existingClaim }}
+            claimName: {{- .Values.persistence.existingClaim }}
+            {{- else }}
+            claimName: {{ include "podsync.fullname" . }}
+            {{- end }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

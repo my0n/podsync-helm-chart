@@ -33,7 +33,8 @@ configuration:
           name: youtube-api-key
           key: apiKey
 persistence:
-  dataClaimName: podsync-pvc
+  enabled: true
+  size: 100Gi
 ingress:
   enabled: true
   host: podsync.example.local
@@ -49,21 +50,4 @@ metadata:
 type: Opaque
 data:
   apiKey: WU9VUl9ZT1VUVUJFX0FQSV9LRVlfSEVSRQ==
-```
-
-```yaml
-# podsync-pvc.yaml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: podsync-pvc
-  namespace: default
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 20Gi
-  storageClassName: my-storage-class
-  volumeMode: Filesystem
 ```
