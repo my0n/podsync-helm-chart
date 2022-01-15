@@ -30,21 +30,37 @@ tests:
       - equal:
           path: metadata.annotations.[configmap.reloader.stakater.com/reload]
           value: RELEASE-NAME-podsync
-  - it: should include PODSYNC_INGRESS_HOST env variable if ingress enabled
+  - it: should include ingress host env variable if ingress enabled
     set:
       ingress.enabled: true
       ingress.host: example.com
     asserts:
+      - isNotEmpty:
+          path: spec.template.spec.initContainers
+      - isNotEmpty:
+          path: spec.template.spec.initContainers[0]
+      - isNotEmpty:
+          path: spec.template.spec.initContainers[0].env
+      - isNotEmpty:
+          path: spec.template.spec.initContainers[0].env[0]
       - equal:
           path: spec.template.spec.initContainers[0].env[0].name
           value: PODSYNC_INGRESS_HOST
       - equal:
           path: spec.template.spec.initContainers[0].env[0].value
           value: example.com
-  - it: should default PODSYNC_INGRESS_HOST env variable to localhost
+  - it: should default ingress host env variable to localhost
     set:
       ingress.enabled: true
     asserts:
+      - isNotEmpty:
+          path: spec.template.spec.initContainers
+      - isNotEmpty:
+          path: spec.template.spec.initContainers[0]
+      - isNotEmpty:
+          path: spec.template.spec.initContainers[0].env
+      - isNotEmpty:
+          path: spec.template.spec.initContainers[0].env[0]
       - equal:
           path: spec.template.spec.initContainers[0].env[0].name
           value: PODSYNC_INGRESS_HOST
