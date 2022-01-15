@@ -62,7 +62,7 @@ spec:
           env:
             {{- if .Values.ingress.enabled }}
             - name: PODSYNC_INGRESS_HOST
-              value: {{ default "localhost" .Values.ingress.host }}
+              value: {{ .Values.ingress.host | default "localhost" }}
             {{- end }}
             {{- toYaml .Values.configuration.env | nindent 12 }}
           volumeMounts:
