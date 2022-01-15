@@ -10,7 +10,7 @@ spec:
     {{- toYaml .Values.persistence.accessModes | nindent 4 }}
   resources:
     requests:
-      storage: {{- default "10Gi" .Values.persistence.size }}
-  storageClassName: {{- .Values.persistence.storageClass }}
+      storage: {{ .Values.persistence.size | default "10Gi" }}
+  storageClassName: {{ .Values.persistence.storageClass }}
   volumeMode: Filesystem
 {{- end }}
