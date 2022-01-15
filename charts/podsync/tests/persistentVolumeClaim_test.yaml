@@ -1,0 +1,52 @@
+suite: test persistentVolumeClaim
+templates:
+  - persistentVolumeClaim.yaml
+tests:
+  - it: should be disabled if persistence is disabled
+    set:
+      persistence.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0
+  - it: should be disabled if has existingClaim
+    set:
+      persistence.enabled: true
+      persistence.existingClaim: my-claim
+    asserts:
+      - hasDocuments:
+          count: 0
+  - it: should generate default pvc
+    set:
+      persistence.enabled: true
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: PersistentVolumeClaim
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-podsync
+      - equal:
+          path: spec.accessModes[0]
+          value: ReadWriteOnce
+      - equal:
+          path: spec.resources.requests.storage
+          value: 10Gi
+      - isEmpty:
+          path: spec.storageClassName
+  - it: should use supplied persistence size
+    set:
+      persistence.enabled: true
+      persistence.size: 20Gi
+    asserts:
+      - equal:
+          path: spec.resources.requests.storage
+          value: 20Gi
+  - it: should use supplied storage class
+    set:
+      persistence.enabled: true
+      persistence.storageClass: my-storage-class
+    asserts:
+      - equal:
+          path: spec.storageClassName
+          value: my-storage-class

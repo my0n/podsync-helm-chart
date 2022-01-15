@@ -37,7 +37,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
               protocol: TCP
           volumeMounts:
             - mountPath: /app/data
@@ -60,11 +60,15 @@ spec:
           image: dibi/envsubst
           imagePullPolicy: IfNotPresent
           env:
+            - name: PODSYNC_PORT
+              value: "8080"
             {{- if .Values.ingress.enabled }}
-            - name: PODSYNC_INGRESS_HOST
-              value: {{ default "localhost" .Values.ingress.host }}
+            - name: PODSYNC_HOST
+              value: {{ .Values.ingress.host | default "localhost" }}
             {{- end }}
-            {{- toYaml .Values.configuration.env | nindent 12 }}
+            {{- with .Values.configuration.env }}
+            {{ toYaml . | nindent 12 }}
+            {{- end }}
           volumeMounts:
             - mountPath: /workdir
               name: config-template
@@ -77,13 +81,12 @@ spec:
         - name: config-final
           emptyDir: {}
         - name: data
-          {{- if .Values.persistence.enabled }}
+          {{- if and .Values.persistence.enabled .Values.persistence.existingClaim }}
           persistentVolumeClaim:
-            {{- if .Values.persistence.existingClaim }}
-            claimName: {{- .Values.persistence.existingClaim }}
-            {{- else }}
+            claimName: {{ .Values.persistence.existingClaim }}
+          {{- else if .Values.persistence.enabled }}
+          persistentVolumeClaim:
             claimName: {{ include "podsync.fullname" . }}
-            {{- end }}
           {{- else }}
           emptyDir: {}
           {{- end }}

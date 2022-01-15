@@ -16,8 +16,8 @@ configuration:
   reloaderEnabled: true
   template: |
     [server]
-    port = 80
-    hostname = "http://${PODSYNC_INGRESS_HOST}"
+    hostname = "http://${PODSYNC_HOST}"
+    port = ${PODSYNC_PORT}
     data_dir = "/app/data/"
 
     [tokens]

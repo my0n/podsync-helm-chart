@@ -1,0 +1,21 @@
+suite: test ingress
+templates:
+  - ingress.yaml
+tests:
+  - it: should be disabled
+    set:
+      ingress.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0
+  - it: should be enabled
+    set:
+      ingress.enabled: true
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Ingress
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-podsync

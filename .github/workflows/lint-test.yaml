@@ -16,8 +16,6 @@ jobs:
         with:
           version: v3.4.1
 
-      # Python is required because `ct lint` runs Yamale (https://github.com/23andMe/Yamale) and
-      # yamllint (https://github.com/adrienverge/yamllint) which require Python
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -32,9 +30,22 @@ jobs:
         id: list-changed
         run: |
           changed=$(ct list-changed --config ct.yaml)
+          charts=$(echo "$changed" | tr '\n' ' ' | xargs)
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
+            echo "::set-output name=changed_charts::$charts"
           fi
-          
-      - name: Run chart-testing (lint)
-        run: ct lint --config ct.yaml
+
+      - name: Run kube-linter
+        uses: buttahtoast/helm-release-action@v2.0.1
+        with:
+          exec: "linter"
+          charts: "${{ steps.list-changed.outputs.changed_charts }}"
+        if: steps.list-changed.outputs.changed == 'true'
+
+      - name: Run Unit-Tests
+        uses: buttahtoast/helm-release-action@v2.0.1
+        with:
+          exec: "unit-tests"
+          charts: "${{ steps.list-changed.outputs.changed_charts }}"
+        if: steps.list-changed.outputs.changed == 'true'
