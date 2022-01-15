@@ -2,7 +2,7 @@
 
 An unofficial helm chart for [podsync](https://github.com/mxpv/podsync) (currently using [this version](https://github.com/tuxpeople/docker-podsync) for yt-dlp support). I made this for my own learning purposes, but maybe you'll get some use out of it, too!
 
-# Example usage:
+## Example usage:
 
 Install the helm chart:
 
