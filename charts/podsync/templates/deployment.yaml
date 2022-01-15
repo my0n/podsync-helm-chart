@@ -6,7 +6,7 @@ metadata:
     {{- include "podsync.labels" . | nindent 4 }}
 {{- if .Values.configuration.reloaderEnabled }}
   annotations:
-    configmap.reloader.stakater.com/reload: "{{ include "podsync.fullname" . }}-config"
+    configmap.reloader.stakater.com/reload: "{{ include "podsync.fullname" . }}"
 {{- end }}
 spec:
   replicas: 1
@@ -75,7 +75,7 @@ spec:
       volumes:
         - name: config-template
           configMap:
-            name: {{ include "podsync.fullname" . }}-config
+            name: {{ include "podsync.fullname" . }}
         - name: config-final
           emptyDir: {}
         {{- if .Values.persistence.dataClaimName }}
