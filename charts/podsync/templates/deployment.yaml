@@ -60,11 +60,15 @@ spec:
           image: dibi/envsubst
           imagePullPolicy: IfNotPresent
           env:
+            - name: PODSYNC_PORT
+              value: "8080"
             {{- if .Values.ingress.enabled }}
-            - name: PODSYNC_INGRESS_HOST
+            - name: PODSYNC_HOST
               value: {{ .Values.ingress.host | default "localhost" }}
             {{- end }}
-            {{- toYaml .Values.configuration.env | nindent 12 }}
+            {{- with .Values.configuration.env }}
+            {{ toYaml . | nindent 12 }}
+            {{- end }}
           volumeMounts:
             - mountPath: /workdir
               name: config-template

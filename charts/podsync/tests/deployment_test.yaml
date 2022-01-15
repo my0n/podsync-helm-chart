@@ -18,6 +18,12 @@ tests:
           path: spec.template.spec.containers[0].name
           value: podsync
       - equal:
+          path: spec.template.spec.initContainers[0].env[0].name
+          value: PODSYNC_PORT
+      - equal:
+          path: spec.template.spec.initContainers[0].env[0].value
+          value: "8080"
+      - equal:
           path: spec.template.spec.containers[0].ports[0].containerPort
           value: 8080
       - equal:
@@ -35,38 +41,12 @@ tests:
       ingress.enabled: true
       ingress.host: example.com
     asserts:
-      - isNotEmpty:
-          path: spec.template.spec.initContainers
-      - isNotEmpty:
-          path: spec.template.spec.initContainers[0]
-      - isNotEmpty:
-          path: spec.template.spec.initContainers[0].env
-      - isNotEmpty:
-          path: spec.template.spec.initContainers[0].env[0]
       - equal:
-          path: spec.template.spec.initContainers[0].env[0].name
-          value: PODSYNC_INGRESS_HOST
+          path: spec.template.spec.initContainers[0].env[1].name
+          value: PODSYNC_HOST
       - equal:
-          path: spec.template.spec.initContainers[0].env[0].value
+          path: spec.template.spec.initContainers[0].env[1].value
           value: example.com
-  - it: should default ingress host env variable to localhost
-    set:
-      ingress.enabled: true
-    asserts:
-      - isNotEmpty:
-          path: spec.template.spec.initContainers
-      - isNotEmpty:
-          path: spec.template.spec.initContainers[0]
-      - isNotEmpty:
-          path: spec.template.spec.initContainers[0].env
-      - isNotEmpty:
-          path: spec.template.spec.initContainers[0].env[0]
-      - equal:
-          path: spec.template.spec.initContainers[0].env[0].name
-          value: PODSYNC_INGRESS_HOST
-      - equal:
-          path: spec.template.spec.initContainers[0].env[0].value
-          value: localhost
   - it: should use emptyDir for persistence if disabled
     set:
       persistence.enabled: false
