@@ -29,9 +29,27 @@ configuration:
   #        name: youtube-api-key
   #        key: apiKey
 
+# Persistence for data such as downloaded video content
 persistence:
-  # The name of the persistentVolumeClaim that data will be stored at (e.g. downloaded video content)
-  dataClaimName: ""
+  # If enabled, a Persistent Volume Claim will either be created or used.
+  # If not enabled, just uses an emptyDir.
+  enabled: false
+
+  # Use an existing Persistent Volume Claim. If empty string (default), then a new one will be generated.
+  existingClaim: ""
+
+  # Access modes for the generated Persistent Volume Claim.
+  accessModes:
+    - ReadWriteOnce
+
+  # Annotations for the generated Persistent Volume Claim.
+  annotations: {}
+
+  # The size of the generated Persistent Volume Claim. Defaults to 10Gi
+  size: 10Gi
+
+  # The storage class for the generated Persistent Volume Claim. If empty string (default), then the default provisioner will be used.
+  storageClass: ""
 
 service:
   type: ClusterIP
