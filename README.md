@@ -22,7 +22,7 @@ configuration:
     [server]
     hostname = "http://${PODSYNC_HOST}"
     port = ${PODSYNC_PORT}
-    data_dir = "/app/data/"
+    data_dir = "${PODSYNC_DATA_DIR}"
 
     [tokens]
     youtube = "${PODSYNC_YOUTUBE_KEY}"

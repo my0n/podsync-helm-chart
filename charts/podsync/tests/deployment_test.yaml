@@ -24,6 +24,12 @@ tests:
           path: spec.template.spec.initContainers[0].env[0].value
           value: "8080"
       - equal:
+          path: spec.template.spec.initContainers[0].env[1].name
+          value: PODSYNC_DATA_DIR
+      - equal:
+          path: spec.template.spec.initContainers[0].env[1].value
+          value: "/app/data"
+      - equal:
           path: spec.template.spec.containers[0].ports[0].containerPort
           value: 8080
       - equal:
@@ -42,10 +48,10 @@ tests:
       ingress.host: example.com
     asserts:
       - equal:
-          path: spec.template.spec.initContainers[0].env[1].name
+          path: spec.template.spec.initContainers[0].env[2].name
           value: PODSYNC_HOST
       - equal:
-          path: spec.template.spec.initContainers[0].env[1].value
+          path: spec.template.spec.initContainers[0].env[2].value
           value: example.com
   - it: should use emptyDir for persistence if disabled
     set:
