@@ -17,7 +17,6 @@ Sample values.yaml given below; see [values.yaml](charts/podsync/values.yaml) fo
 ```yaml
 # values.yaml
 configuration:
-  reloaderEnabled: true
   template: |
     [server]
     hostname = "http://${PODSYNC_HOST}"
