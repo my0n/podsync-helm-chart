@@ -3,8 +3,6 @@ should match snapshot:
     apiVersion: apps/v1
     kind: Deployment
     metadata:
-      annotations:
-        checksum/config: 38cbef60138d587f4816213b2041aa0aecebf6c04005840d973741c22d3b6160
       labels:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
@@ -20,6 +18,8 @@ should match snapshot:
           app.kubernetes.io/name: podsync
       template:
         metadata:
+          annotations:
+            checksum/config: 38cbef60138d587f4816213b2041aa0aecebf6c04005840d973741c22d3b6160
           labels:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/name: podsync

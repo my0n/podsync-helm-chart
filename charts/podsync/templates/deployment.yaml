@@ -4,8 +4,6 @@ metadata:
   name: {{ include "podsync.fullname" . }}
   labels:
     {{- include "podsync.labels" . | nindent 4 }}
-  annotations:
-    checksum/config: {{ include (print $.Template.BasePath "/configMap.yaml") . | sha256sum }}
 spec:
   replicas: 1
   selector:
@@ -13,8 +11,9 @@ spec:
       {{- include "podsync.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configMap.yaml") . | sha256sum }}
+      {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:

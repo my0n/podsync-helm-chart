@@ -19,6 +19,7 @@ should match snapshot:
       template:
         metadata:
           annotations:
+            a8r.io/description: A very nice pod
             checksum/config: 38cbef60138d587f4816213b2041aa0aecebf6c04005840d973741c22d3b6160
           labels:
             app.kubernetes.io/instance: RELEASE-NAME
@@ -54,8 +55,6 @@ should match snapshot:
               value: "8080"
             - name: PODSYNC_DATA_DIR
               value: /app/data
-            - name: PODSYNC_HOST
-              value: example.com
             image: dibi/envsubst
             imagePullPolicy: IfNotPresent
             name: podsync-init-config
