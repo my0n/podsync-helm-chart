@@ -25,6 +25,13 @@ configuration:
   #        name: youtube-api-key
   #        key: apiKey
 
+  # File name of a shell script to load additional template environment variables from.
+  # This is useful when using Vault - the initContainer will first `source` the file you
+  # provide to load env variables, then it will run `envsubst` on the template with both
+  # the variables you specify in env and the variables from this file.
+  envInjectSource: ""
+  # "/vault/secrets/config"
+
 # Persistence for data such as downloaded video content
 persistence:
   # If enabled, a Persistent Volume Claim will either be created or used.
