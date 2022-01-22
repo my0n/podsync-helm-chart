@@ -13,10 +13,6 @@ nameOverride: ""
 fullnameOverride: ""
 
 configuration:
-  # Enable Reloader support for automatically reloading the ConfigMap template on update
-  # https://github.com/stakater/Reloader
-  reloaderEnabled: false
-
   # The config.toml template contents
   template: ""
 

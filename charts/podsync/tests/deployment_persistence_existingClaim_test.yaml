@@ -1,5 +1,6 @@
 suite: test deployment
 templates:
+  - configMap.yaml
   - deployment.yaml
 tests:
   - it: should match snapshot
@@ -9,5 +10,6 @@ tests:
     set:
       persistence.enabled: true
       persistence.existingClaim: my-claim
+    template: deployment.yaml
     asserts:
       - matchSnapshot: {}

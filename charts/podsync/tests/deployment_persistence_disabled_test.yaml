@@ -1,5 +1,6 @@
 suite: test deployment
 templates:
+  - configMap.yaml
   - deployment.yaml
 tests:
   - it: should match snapshot
@@ -8,5 +9,6 @@ tests:
       appVersion: 1.0.0
     set:
       persistence.enabled: false
+    template: deployment.yaml
     asserts:
       - matchSnapshot: {}

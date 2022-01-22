@@ -1,5 +1,6 @@
 suite: test deployment
 templates:
+  - configMap.yaml
   - deployment.yaml
 tests:
   - it: should match snapshot
@@ -9,5 +10,6 @@ tests:
     set:
       ingress.enabled: true
       ingress.host: example.com
+    template: deployment.yaml
     asserts:
       - matchSnapshot: {}

@@ -4,7 +4,7 @@ should match snapshot:
     kind: Deployment
     metadata:
       annotations:
-        configmap.reloader.stakater.com/reload: RELEASE-NAME-podsync
+        checksum/config: cdd0cab334d0d9158ac3132fad8150d5a7ce2a8a6a42369be12ecc87e025683f
       labels:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
