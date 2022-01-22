@@ -96,9 +96,9 @@ podAnnotations:
   vault.hashicorp.com/agent-inject: 'true'
   vault.hashicorp.com/role: 'podsync'
   vault.hashicorp.com/agent-init-first: 'true'
-  vault.hashicorp.com/agent-inject-secret-config: 'kv/data/youtube/config'
+  vault.hashicorp.com/agent-inject-secret-config: 'internal/data/youtube/config'
   vault.hashicorp.com/agent-inject-template-config: |
-    {{ with secret "kv/data/youtube/config" -}}
+    {{ with secret "internal/data/youtube/config" -}}
       export PODSYNC_YOUTUBE_KEY="{{ .Data.data.apiKey }}"
     {{- end }}
 ```
