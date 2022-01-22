@@ -1,0 +1,10 @@
+suite: test ingress
+templates:
+  - ingress.yaml
+tests:
+  - it: should match snapshot
+    set:
+      ingress.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0

@@ -1,0 +1,9 @@
+suite: test configMap
+templates:
+  - configMap.yaml
+tests:
+  - it: should match snapshot
+    set:
+      configuration.reloaderEnabled: true
+    asserts:
+      - matchSnapshot: {}
