@@ -89,7 +89,7 @@ vault write auth/kubernetes/role/podsync \
 
 Finally, add the following to your values.yaml (adjusted as needed).
 
-```
+```yaml
 configuration:
   envInjectSource: /vault/secrets/config
 podAnnotations:
