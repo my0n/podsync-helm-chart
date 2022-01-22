@@ -3,6 +3,21 @@ entries:
   podsync:
   - apiVersion: v2
     appVersion: v2.4.2
+    created: "2022-01-22T02:54:02.750219565Z"
+    description: An unofficial helm chart for podsync.
+    digest: 49e87785715b00101d65bdca6f5aa4df983a7af512f07596a02513acae4ad360
+    home: https://github.com/my0n/podsync-helm-chart
+    maintainers:
+    - name: my0n
+    name: podsync
+    sources:
+    - https://github.com/my0n/podsync-helm-chart
+    type: application
+    urls:
+    - https://github.com/my0n/podsync-helm-chart/releases/download/podsync-1.3.1/podsync-1.3.1.tgz
+    version: 1.3.1
+  - apiVersion: v2
+    appVersion: v2.4.2
     created: "2022-01-22T02:38:18.096511433Z"
     description: An unofficial helm chart for podsync.
     digest: 7f92280cb054791d3f5d0cb384ba2b22fcbf7ff4d76d8b91e831115ea5b493f8
