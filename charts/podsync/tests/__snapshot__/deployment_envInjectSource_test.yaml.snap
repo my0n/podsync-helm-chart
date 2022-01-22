@@ -52,8 +52,7 @@ should match snapshot:
           - args:
             - sh
             - -c
-            - source /vault/secrets/config && cat /vault/secrets/config && envsubst <
-              /workdir/config.toml > /processed/config.toml
+            - source /vault/secrets/config && envsubst < /workdir/config.toml > /processed/config.toml
             env:
             - name: PODSYNC_PORT
               value: "8080"

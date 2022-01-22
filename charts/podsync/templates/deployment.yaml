@@ -72,7 +72,7 @@ spec:
             - 'sh'
             - '-c'
             {{- if .Values.configuration.envInjectSource }}
-            - 'source {{ .Values.configuration.envInjectSource }} && cat {{ .Values.configuration.envInjectSource }} && envsubst < /workdir/config.toml > /processed/config.toml'
+            - 'source {{ .Values.configuration.envInjectSource }} && envsubst < /workdir/config.toml > /processed/config.toml'
             {{- else }}
             - 'envsubst < /workdir/config.toml > /processed/config.toml'
             {{- end }}
