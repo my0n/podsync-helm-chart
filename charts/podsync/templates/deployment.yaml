@@ -54,7 +54,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
       initContainers:
         - name: {{ .Chart.Name }}-init-config
-          image: dibi/envsubst
+          image: bhgedigital/envsubst:v1.0-alpine3.6
           imagePullPolicy: IfNotPresent
           env:
             - name: PODSYNC_PORT
@@ -67,6 +67,14 @@ spec:
             {{- end }}
             {{- with .Values.configuration.env }}
             {{ toYaml . | nindent 12 }}
+            {{- end }}
+          args:
+            - 'sh'
+            - '-c'
+            {{- if .Values.configuration.envInjectSource }}
+            - 'source {{ .Values.configuration.envInjectSource }} && cat {{ .Values.configuration.envInjectSource }} && envsubst < /workdir/config.toml > /processed/config.toml'
+            {{- else }}
+            - 'envsubst < /workdir/config.toml > /processed/config.toml'
             {{- end }}
           volumeMounts:
             - mountPath: /workdir

@@ -19,7 +19,6 @@ should match snapshot:
       template:
         metadata:
           annotations:
-            a8r.io/description: A very nice pod
             checksum/config: 38cbef60138d587f4816213b2041aa0aecebf6c04005840d973741c22d3b6160
           labels:
             app.kubernetes.io/instance: RELEASE-NAME
@@ -53,7 +52,8 @@ should match snapshot:
           - args:
             - sh
             - -c
-            - envsubst < /workdir/config.toml > /processed/config.toml
+            - source /vault/secrets/config && cat /vault/secrets/config && envsubst <
+              /workdir/config.toml > /processed/config.toml
             env:
             - name: PODSYNC_PORT
               value: "8080"

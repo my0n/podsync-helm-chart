@@ -49,12 +49,16 @@ should match snapshot:
               name: config-final
               subPath: config.toml
           initContainers:
-          - env:
+          - args:
+            - sh
+            - -c
+            - envsubst < /workdir/config.toml > /processed/config.toml
+            env:
             - name: PODSYNC_PORT
               value: "8080"
             - name: PODSYNC_DATA_DIR
               value: /app/data
-            image: dibi/envsubst
+            image: bhgedigital/envsubst:v1.0-alpine3.6
             imagePullPolicy: IfNotPresent
             name: podsync-init-config
             volumeMounts:
