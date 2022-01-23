@@ -4,7 +4,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: {{ include "podsync.fullname" . }}
   annotations:
-    {{- toYaml .Values.podAnnotations | nindent 4 }}
+    {{- toYaml .Values.persistence.annotations | nindent 4 }}
 spec:
   accessModes:
     {{- toYaml .Values.persistence.accessModes | nindent 4 }}
