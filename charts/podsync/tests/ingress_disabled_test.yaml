@@ -2,7 +2,7 @@ suite: test ingress
 templates:
   - ingress.yaml
 tests:
-  - it: should match snapshot
+  - it: should not generate an ingress
     set:
       ingress.enabled: false
     asserts:
